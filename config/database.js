@@ -1,3 +1,3 @@
 module.exports = {
-'url':'mongodb://@127.0.0.1:27017/fccvoting'
+'url':'mongodb://fccUser:fccPassword@ds149324.mlab.com:49324/fccvoting'
 }
