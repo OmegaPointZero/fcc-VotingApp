@@ -1,0 +1,54 @@
+.toolbar{
+    background-color: white;
+    color: #bbbb77;
+    width: 100%;
+    width: 100vw;
+    position: absolute;
+    left: 0;
+    top: 0;
+    padding: 10px;
+}
+
+a:link{
+    color: #bbbb77;
+    text-decoration: none;
+}
+
+a:visited{
+    color: #bbbb77;
+    text-decoration: none;
+}
+
+body{
+    background: #9999bb;
+    padding: 0px;
+}
+
+.main{
+    margin-top: 38px;
+    color: white;
+}
+
+.loginpanel{
+    width:500px;
+    margin: auto;
+    color: black;
+    background-color: white;
+    padding: 5px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.form-group{
+    margin: auto;
+    padding: 5px;
+}
+
+.form-control{
+    width: 75%;
+}
+
+.signup-button{
+    padding: 8px;
+    width: 50%;
+}

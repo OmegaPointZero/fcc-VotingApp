@@ -1,0 +1,171 @@
+<html>
+<head>
+<title>FCC Voting App - <%=name%>'s Profile</title>
+<!-- Style, Link and Script tags start here 
+    <link rel="stylesheet" href="css/main.css"> 
+    <script src="js/banner.js"></script>--> 
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script> <!-- load jQuery -->
+    <link rel="stylesheet" href="/css/main.css">
+
+    <script>
+    $(document).ready(function(){
+	
+	    $('ul.tabs li').click(function(){
+		    var tab_id = $(this).attr('data-tab');
+
+		    $('ul.tabs li').removeClass('current');
+		    $('.tab-content').removeClass('current');
+
+		    $(this).addClass('current');
+		    $("#"+tab_id).addClass('current');
+	    })
+        
+        $('.expandable').click(function(){
+            $('.content-' + this.id).slideToggle();
+        });
+
+    })
+    </script>
+
+<style>
+    .panel{
+        padding: 15px;    
+    }
+
+    .form-control{
+        width: 50%;
+    }
+    
+    #synopsis{
+        height: 250px;    
+    }
+
+    .container{
+	    width: 800px;
+	    margin: 0 auto;
+    }
+
+    ul.tabs{
+	    margin: 0px;
+	    padding: 0px;
+	    list-style: none;
+    }
+    ul.tabs li{
+	    background: none;
+	    color: #222;
+	    display: inline-block;
+	    padding: 10px 15px;
+	    cursor: pointer;
+    }
+
+    ul.tabs li.current{
+	    background: #ededed;
+	    color: #222;
+    }
+
+    .tab-content{
+	    display: none;
+	    background: #ededed;
+	    padding: 15px;
+    }
+
+    .tab-content.current{
+	    display: inherit;
+    }
+
+    .content{
+        display:none;
+        padding: 4px;
+        margin: 4px;
+    }
+    
+    .invisible{
+        display:none;
+    }
+
+    .form-group{ 
+        border: 1px;
+        border-radius : 5px;
+        border-style : solid;
+        border-color : white;
+        padding : 2px;
+        margin : 4px;
+    } 
+
+    .bubble{
+        background: white;
+    }
+
+    .expandable{
+        color:black;
+    }
+    .expandable a:link{color:blue;}
+    .expandable a:visited{color:blue}
+    .content a:link{color:blue}
+    .content a:visited{color:blue}
+    a#delete-link:link{color:red}
+
+    .main-content{
+        background-color: white;
+    }
+
+    .container {
+        color: black;
+    }
+    
+    .main{
+        padding: 5px;
+    }
+</style>
+<!-- Style, Link and Script tags end here -->
+</head>
+
+<body>
+<div>
+<header class="toolbar">
+    Dashboard |
+    <a href="/home" class="dblink">Home</a> |
+    <a href="/profile" class="dblink">Profile</a> |
+    <a href="/poll/SAMPLE" class="dblink">Sample Poll</a> |
+    <a href="/logout" class="dblink">Logout</a> 
+</header>
+</div>
+<div class="main">
+
+Welcome back, <%=name%>.<br>
+<div class="container">
+    <ul class="tabs">
+		<li class="tab-link current" data-tab="tab-1">New Poll</li>
+		<li class="tab-link" data-tab="tab-2">My Polls</li>
+	</ul>
+
+	<div id="tab-1" class="tab-content current">
+        <!-- THIS RIGHT HERE STARTS THE UPLOAD PANEL!!!!!! -->
+		<div id="upload-panel" class="panel">
+            <form action="/newpoll" method="post">
+            <div class="form-group">
+                <label>Poll Title</label>
+                <input type="text" class="form-control" name="title">
+            </div>
+            <div class="form-group">
+                <label>Poll Options</label><br>(Separate options with commas and a space)<br>
+                <textarea name="options" cols="55" rows="10"></textarea><br>
+            <button id="content-upload-submit" type="submit" class="btn btn-warning btn-lg">Upload</button>
+            </form>
+            </div>
+        </div>
+	</div>
+
+	<div id="tab-2" class="tab-content">
+        <!-- THIS RIGHT HERE STARTS THE UPLOAD PANEL!!!!!! -->
+		<div id="upload-panel" class="panel">
+            My polls go here.
+        </div>
+	</div>
+</div> <!-- container-->
+</div>
+
+
+</body>
+</html>

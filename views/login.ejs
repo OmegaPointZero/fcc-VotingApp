@@ -1,0 +1,54 @@
+<html>
+<head>
+<title>FCC Voting App - Login</title>
+<!-- Style, Link and Script tags start here 
+    <link rel="stylesheet" href="css/main.css"> 
+    <script src="js/banner.js"></script>--> 
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script> <!-- load jQuery -->
+    <link rel="stylesheet" href="/css/main.css">qq
+<!-- Style, Link and Script tags end here -->
+</head>
+
+<body>
+<div>
+<header class="toolbar">
+    Dashboard |
+    <a href="/home" class="dblink">Home</a> |
+    <a href="/login" class="dblink">Login</a> | 
+    <a href="/signup" class="dblink">Signup</a> |
+    <a href="/profile" class="dblink">Profile</a> |
+    <a href="/poll/SAMPLE" class="dblink">Sample Poll</a> 
+</header>
+</div>
+<div class="main">
+    <div class="loginpanel">
+        <h1><span class="fa fa-sign-in">Login</span></h1>
+        <% if (message.length > 0) { %>
+        <div class="alert alert-danger"><%= message %></div>
+        <% } %>
+
+        <!-- Login Form -->
+        <form action="/login" method="post">
+            <div class="form-group">
+                <label>Username</label><br>
+                <input type="text" class="form-control" name="username"><br>
+            </div>
+            <div class="form-group">
+                <label>Password</label><br>
+                <input type="password" class="form-control" name="password"><br>
+            </div>
+
+            <button type="submit" class="btn btn-warning btn-lg">Login</button>
+        </form>
+
+        <hr>
+
+        <p id="form-link">Not already a member? <a href="/signup">Signup here!</a></p>
+        <p id="form-link">Or go <a href="/">back to the home page</a>.</p>
+    </div>
+</div>
+
+
+</body>
+</html>

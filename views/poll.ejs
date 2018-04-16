@@ -1,0 +1,124 @@
+<html>
+<head>
+<title>FCC Voting App - <%=pollTitle%></title>
+<!-- Style, Link and Script tags start here 
+    <link rel="stylesheet" href="css/main.css"> 
+    <script src="js/banner.js"></script>--> 
+    <link rel="stylesheet" href="/css/main.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
+<!-- Style, Link and Script tags end here -->
+</head>
+
+<body>
+<div>
+<header class="toolbar">
+    Dashboard |
+    <a href="/home" class="dblink">Home</a> |
+    <a href="/login" class="dblink">Login</a> | 
+    <a href="/signup" class="dblink">Signup</a> |
+    <a href="/profile" class="dblink">Profile</a> |
+    <a href="/poll/SAMPLE" class="dblink">Sample Poll</a> 
+</header>
+</div>
+<div class="main">
+<div class="pollContainer">
+
+<h1><%=pollTitle%></h1>
+A poll by <%=author%>
+<table width="100%">
+    <tr>
+        <td>
+
+            <form action="/<%=pollId%>/vote" method="post">
+            <% var optArr = [] %>
+            <% var voteArr = [] %>
+            <% for(var i=0;i<pollOpts.length;i++){ %>
+                <% var option = pollOpts[i]["option"] %>
+                <% optArr.push(option) %>
+                <% var votes = pollOpts[i]["votes"] %>
+                <% voteArr.push(votes) %>
+                <input type="radio" name="castVote" value="<%=option%>"><%=option%><br>
+            <% } %>
+            <% if(user!="Guest"){ %>
+<!-- make hidden input value, get val from
+new input, submit
+-->
+                <input type="radio" name="castVote" value="newPollOption"><input type="text" name ="newinput" id="newinput"></input></input><br>
+            <% } %>
+                <button id="vote-cast-submit" type="submit" class="btn btn-warning btn-lg">Vote</button>
+             </form>
+        </td>
+                    <td>
+            <canvas id="myChart">
+                <script>
+                var ctx = document.getElementById("myChart").getContext('2d');
+                var optarr = "<%=optArr%>";
+                var labelArr = optarr.split(',');
+                var voteArr = "<%=voteArr%>";
+                var votes = voteArr.split(',');
+                var title = "<%=pollTitle%>";
+
+                var rgbArr = [];
+
+                var math = function(number, index){
+                    if(number*index < 256){
+                        return number*index
+                    } else {
+                        return number
+                    }
+                }
+
+                var makeRand = function(){
+                    var number = Math.floor((Math.random() * 100) % 256);
+                    number = math(number, 3)
+                    number = math(number, 2)        
+
+                    return number
+                }
+
+                var makeRGB = function(item){
+                    var firstRand = makeRand();
+                    var secRand = makeRand();
+                    var thiRand = makeRand();
+                    var str = 'rgba('+firstRand+','+secRand+','+thiRand+', 1)'
+                    return(str)
+                }
+
+                for(var i in labelArr){
+                    rgbArr.push(makeRGB(labelArr))
+                }
+
+                var myChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: labelArr,
+                        datasets: [{
+                            label: title,
+                            data: votes,
+                            backgroundColor: rgbArr,
+                            borderColor: rgbArr,
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero:true
+                                }
+                            }]
+                        }
+                    }
+                });
+                </script>
+            </canvas>
+        </td>
+    </tr>
+</table>
+
+
+</div>
+</div>
+
+</body>
+</html>
