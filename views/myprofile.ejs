@@ -115,6 +115,14 @@
     }
     
     .main{
+        margin-top: 38px;
+        }
+
+    .userpanel{
+        background: white;
+        color: black;
+        width: 80%;
+        margin: auto;
         padding: 5px;
     }
 </style>
@@ -126,13 +134,12 @@
 <header class="toolbar">
     Dashboard |
     <a href="/home" class="dblink">Home</a> |
-    <a href="/profile" class="dblink">Profile</a> |
-    <a href="/poll/SAMPLE" class="dblink">Sample Poll</a> |
+    <a href="/random" class="dblink">Random Poll</a> 
     <a href="/logout" class="dblink">Logout</a> 
 </header>
 </div>
 <div class="main">
-
+<div class="userpanel">
 Welcome back, <%=name%>.<br>
 <div class="container">
     <ul class="tabs">
@@ -141,7 +148,6 @@ Welcome back, <%=name%>.<br>
 	</ul>
 
 	<div id="tab-1" class="tab-content current">
-        <!-- THIS RIGHT HERE STARTS THE UPLOAD PANEL!!!!!! -->
 		<div id="upload-panel" class="panel">
             <form action="/newpoll" method="post">
             <div class="form-group">
@@ -158,11 +164,25 @@ Welcome back, <%=name%>.<br>
 	</div>
 
 	<div id="tab-2" class="tab-content">
-        <!-- THIS RIGHT HERE STARTS THE UPLOAD PANEL!!!!!! -->
+
 		<div id="upload-panel" class="panel">
-            My polls go here.
+            <%for(var i=0;i<mypolls.length;i++){ %>
+            <% var totalVotes = 0%>
+            <%for(var n=0;n<mypolls[i].options.length;n++){ %>
+                <% totalVotes 
++= mypolls[i].options[n].votes %>
+            <% } %>
+            <a href="/poll/<%=mypolls[i].id%>"><%=mypolls[i].title%></a> (<%=totalVotes%> total votes)
+
+<form action="/poll/delete/<%=mypolls[i].id%>" method="post">
+    <input type="submit" class="delete" value="Delete This Poll"/>
+</form></p>
+
+<br>
+            <% } %>
         </div>
 	</div>
+    </div>
 </div> <!-- container-->
 </div>
 

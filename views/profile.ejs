@@ -1,10 +1,51 @@
 <html>
-This is the profile page.
+<head>
+<title>FCC Voting App - <%=user%>'s Profile</title>
+<!-- Style, Link and Script tags start here 
+    <link rel="stylesheet" href="css/main.css"> 
+    <script src="js/banner.js"></script>--> 
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script> <!-- load jQuery -->
+    <link rel="stylesheet" href="/css/main.css">
 
-<a href="/login">Login</a>
-<a href="/signup">Signup</a>
-<a href="/profile">Profile</a>
-<a href="/home">Home</a>
-<a href="/poll/SAMPLE">Sample Poll</a>
+<style>
+   
+    .main{
+        margin-top: 38px;
+        }
 
+    .userpanel{
+        background: white;
+        color: black;
+        width: 80%;
+        margin: auto;
+        padding: 5px;
+    }
+</style>
+<!-- Style, Link and Script tags end here -->
+</head>
+
+<body>
+<div>
+<header class="toolbar">
+    Dashboard |
+    <a href="/home" class="dblink">Home</a> |
+    <a href="/random" class="dblink">Random Poll</a> 
+    <a href="/logout" class="dblink">Logout</a> 
+</header>
+</div>
+<div class="main">
+<div class="userpanel">
+<h2><%=user%>'s User Profile</h2>
+<hr>
+<p><%=user%>'s Recent polls:</p>
+            <%for(var i=0;i<mypolls.length;i++){ %>
+                <a href="/poll/<%=mypolls[i].id%>"><%=mypolls[i].title%></a><br>
+            <% } %>
+
+</div> 
+</div>
+
+
+</body>
 </html>

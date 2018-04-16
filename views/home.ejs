@@ -6,6 +6,22 @@
     <script src="js/banner.js"></script>--> 
     <link rel="stylesheet" href="/css/main.css">
 <!-- Style, Link and Script tags end here -->
+    <style>
+    .mainpanel{
+        background: white;
+        color: black;
+        width: 80%;
+        margin: auto;
+        padding: 15px;
+        border-bottom-left-radius: 5px;
+        border-bottom-right-radius: 5px;
+    }
+
+    .recent{
+        text-align: center;
+        margin: auto;
+    }
+    </style>
 </head>
 
 <body>
@@ -13,17 +29,38 @@
 <header class="toolbar">
     Dashboard |
     <a href="/home" class="dblink">Home</a> |
+    <% if(user=="Guest") { %>
     <a href="/login" class="dblink">Login</a> | 
     <a href="/signup" class="dblink">Signup</a> |
-    <a href="/profile" class="dblink">Profile</a> |
-    <a href="/poll/SAMPLE" class="dblink">Sample Poll</a> 
+    <% } else { %>
+    <a href="/profile" class="dblink"><%=user%>'s Profile</a> |
+    <% } %>
+    <a href="/random" class="dblink">Random Poll</a> 
 </header>
 </div>
 <div class="main">
-Welcome home, <%=user%>
+<div class="mainpanel">
+<h1>Welcome to the FreeCodeCamp Voting App project</h1>
+<p>Here are your options to get started: </p>
+<%if(user=="Guest"){%>
+<a href="/login">Login</a><br>
+<a href="/signup">Signup</a><br>
+<% } %>
+<%if(user!="Guest"){%>
+<a href="/profile">My Profile</a><br>
+<% } %>
+<a href="/random">Go to a Random Poll</a><br>
+<hr>
+<div class="recent">
+<h3>Recent Polls!</h3>
+<%for(var i=0;i<polls.length;i++) { %>
+    <a href="/poll/<%=polls[i].id%>"><%=polls[i].title%></a><br>
+<% } %>
+</div>
+
 </div>
 
 
-
+</div>
 </body>
 </html>

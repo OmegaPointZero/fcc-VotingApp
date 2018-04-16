@@ -6,6 +6,7 @@
     <script src="js/banner.js"></script>--> 
     <link rel="stylesheet" href="/css/main.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script> <!-- load jQuery -->
 <!-- Style, Link and Script tags end here -->
 </head>
 
@@ -14,17 +15,20 @@
 <header class="toolbar">
     Dashboard |
     <a href="/home" class="dblink">Home</a> |
+    <% if(user=="Guest") { %>
     <a href="/login" class="dblink">Login</a> | 
     <a href="/signup" class="dblink">Signup</a> |
-    <a href="/profile" class="dblink">Profile</a> |
-    <a href="/poll/SAMPLE" class="dblink">Sample Poll</a> 
+    <% } else { %>
+    <a href="/profile" class="dblink"><%=user%>'s Profile</a> |
+    <% } %>
+    <a href="/random" class="dblink">Random Poll</a> 
 </header>
 </div>
 <div class="main">
 <div class="pollContainer">
 
 <h1><%=pollTitle%></h1>
-A poll by <%=author%>
+A poll by <a href="/profile/<%=author%>"><%=author%></a><br><br>
 <table width="100%">
     <tr>
         <td>
@@ -57,7 +61,9 @@ new input, submit
                 var voteArr = "<%=voteArr%>";
                 var votes = voteArr.split(',');
                 var title = "<%=pollTitle%>";
-
+                var parser = new DOMParser;
+                var dom = parser.parseFromString(title, 'text/html');
+                var decoded = dom.body.textContent;
                 var rgbArr = [];
 
                 var math = function(number, index){
@@ -93,7 +99,7 @@ new input, submit
                     data: {
                         labels: labelArr,
                         datasets: [{
-                            label: title,
+                            label: decoded,
                             data: votes,
                             backgroundColor: rgbArr,
                             borderColor: rgbArr,

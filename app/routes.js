@@ -8,16 +8,18 @@ module.exports = (function(app,passport){
     })
 
     app.get('/home', function(req,res){
-        console.log(req.user);
-        if(req.user==undefined){
+      if(req.user==undefined){
             var uname = "Guest";
         } else {
             var uname = req.user.username
         }
-        res.render('home.ejs', {
-            user : uname
-        })
-    })
+        Content.find({}, {}, {sort:'-date'}, function(err, entries){
+            res.render('home.ejs', {
+                polls: entries,
+                user : uname
+            });
+        });
+    });
 
     app.get('/login', function(req,res){
         if (req.user == undefined){
@@ -52,16 +54,35 @@ module.exports = (function(app,passport){
     );
 
     app.get('/profile', isLoggedIn, function(req,res) {
-        res.render('myprofile.ejs', {
-            email : req.user.email, 
-            name : req.user.username,
-            user: req.user
+        Content.find({author: req.user.username}, {}, function(err, entries){
+            res.render('myprofile.ejs', {
+                name : req.user.username,
+                user: req.user,
+                mypolls: entries
+            })
         });
     });
 
     app.get('/profile/:user', function(req,res){
         var user = req.params.user;
-        res.send(user);
+        Content.find({author: user}, {}, function(err, entries){
+            res.render('profile.ejs', {
+                user: user,
+                mypolls: entries
+            })
+        })
+    });
+
+    app.get('/random', function(req,res){
+        Content.find({}, {}, function(err, entries){
+            console.log(entries)
+            var len = entries.length;
+            var ran = Math.floor(Math.random() * 1000);
+            ran = ran % len;
+            console.log(ran)
+            var pollID = entries[ran].id;
+            res.redirect('/poll/' + pollID);
+        });
     });
 
     app.get('/poll/:id', function(req,res){
@@ -148,6 +169,14 @@ module.exports = (function(app,passport){
 
         res.redirect('/poll/' + id);
 
+    })
+
+    app.post('/poll/delete/:id', isLoggedIn, function(req,res){
+        var Id = req.params.id;
+        Content.findOneAndRemove({ id: Id, author: req.user.username}, function(err){
+            if(err) throw err;
+        })
+        res.redirect('/profile');
     })
 
     function isLoggedIn(req,res,next){
